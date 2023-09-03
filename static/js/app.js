@@ -60,7 +60,7 @@ d3.json(url).then(function(data) {
     // Call Dropdown Menu Function
     makeMenu()
 
-    // User selection
+    // Dropdown Menu Selection & Call getData Function
     d3.selectAll("#selDataset").on("change", getData);
     
 
@@ -101,6 +101,7 @@ d3.json(url).then(function(data) {
       let chartData = sample_object.find(field => field.id === user_choice);
       let demographicData = metadataObject.find(field => field.id == user_choice);
       
+      /////////////////// DEMOGRAPHIC INFO BOX //////////////////////
       // Select Demographic Info Box
       let demographicInfo = document.getElementById("sample-metadata");
       
@@ -118,7 +119,7 @@ d3.json(url).then(function(data) {
       
       /////////////////// HORIZONTAL BAR CHART //////////////////////
       // Set Trace for Horizontal Bar Chart 
-      let trace1 = {
+      let traceBar = {
         x: chartData.values.slice(0,10).reverse(),
         y: chartData.otu_ids.slice(0,10).map(id => `OTU ${id}`).reverse(),
         text: chartData.labels.slice(0,10).reverse(),
@@ -130,7 +131,7 @@ d3.json(url).then(function(data) {
       };
   
       // Set Bar Chart Data to Trace
-      let barData = [trace1];
+      let barData = [traceBar];
 
       // Set Bar Chart Layout Parameters
       let barLayout = {
@@ -144,7 +145,7 @@ d3.json(url).then(function(data) {
 
       //////////////////////// BUBBLE CHART /////////////////////////
       // Set Trace for Bubble Chart
-      let trace2 = {
+      let traceBubble = {
         type: "scatter",
         mode: 'markers',
         x: chartData.otu_ids,
@@ -158,7 +159,7 @@ d3.json(url).then(function(data) {
       };
       
       // Set Bubble Chart Data to Trace
-      let bubbleData = [trace2];
+      let bubbleData = [traceBubble];
       
       // Set Bubble Chart Layout Parameters
       var bubbleLayout = {
@@ -174,9 +175,9 @@ d3.json(url).then(function(data) {
       // Plot Bubble Chart
       Plotly.newPlot("bubble", bubbleData, bubbleLayout);
 
-      //////////////////////// SCRUB GAUGE //////////////////////////
+      //////////////////////// GAUGE CHART //////////////////////////
       // Set Trace for Gauge Chart
-      let trace3 = {
+      let traceGauge = {
           domain: { x: [0, 1], y: [0, 1] },
           value: demographicData.wfreq,
           title: { text: `<b>Belly Button Washing Frequency</b> <br>Scrubs Per Week`},
@@ -199,7 +200,7 @@ d3.json(url).then(function(data) {
         };
       
       // Set Gauge Chart Data to Trace
-      let gaugeData = [trace3];
+      let gaugeData = [traceGauge];
 
       // Set Gauge Chart Layout Parameters
       let gaugeLayout = { 

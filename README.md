@@ -104,7 +104,7 @@ d3.json(url).then(function(data) {
     // Call Dropdown Menu Function
     makeMenu()
 
-    // User selection
+    // Dropdown Menu Selection & Call getData Function
     d3.selectAll("#selDataset").on("change", getData);
 ```
 
